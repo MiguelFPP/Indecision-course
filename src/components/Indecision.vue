@@ -25,13 +25,18 @@ export default {
     },
     methods: {
         async getAnswer() {
-            this.answer = 'Pensando';
+            try {
+                this.answer = 'Pensando';
 
-            const { answer, image } = await fetch('https://yesno.wtf/api')
-                .then(r => r.json());
+                const { answer, image } = await fetch('https://yesno.wtf/api')
+                    .then(r => r.json());
 
-            this.answer = this.convertAnswer(answer);
-            this.img = image;
+                this.answer = this.convertAnswer(answer);
+                this.img = image;
+            } catch (error) {
+                this.answer = 'No se pudo cargar el api';
+                this.img = null;
+            }
         },
         convertAnswer(answer) {
             let news = '';
@@ -54,6 +59,9 @@ export default {
     watch: {
         question(value, oldValue) {
             this.isValidQuestion = false;
+
+            console.log({ value });
+
             if (!value.includes('?')) return;
             this.isValidQuestion = true;
 

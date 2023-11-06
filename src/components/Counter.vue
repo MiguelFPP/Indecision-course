@@ -1,6 +1,7 @@
 <template>
     <h2>{{ customTitle }}</h2>
     <p>{{ counter }}</p>
+    <p data-testid="counter">{{ counter }}</p>
 
     <button v-on:click="increment">+</button>
     <button v-on:click="decrement">-</button>
@@ -18,7 +19,7 @@ export default {
     props: {
         title: { type: String, required: true },
         start: {
-            type: Number, default: 1,
+            type: Number, default: 100,
             validator(value) {
                 return value >= 100;
             }
